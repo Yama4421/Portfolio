@@ -1,7 +1,7 @@
 import random
 import sys
 
-RANK_THRESHOLDS = [0.6, 1.6, 6.6, 21.6, 51.6, 71.6, 90.6]
+RANK_THRESHOLDS = [0.3, 1.7, 6.7, 21.6, 51.6, 71.6, 90.6]
 RANKS = ["GR", "SSR", "SR", "RRR", "CR", "R", "C", "N"]
 
 player_status = 0
