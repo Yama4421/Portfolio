@@ -22,7 +22,9 @@
 #################################################
 #コード記入欄
 #ライブラリ
-import sys,datetime,time,random,math
+import sys
+import datetime, time
+import random, math
 import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
@@ -93,16 +95,22 @@ drink_point = len(drink)                                                        
 drink_price_point = len(drink_price)                                                            #値段のデータ長
 drink_stock_point = len(drink_stock)                                                            #在庫数のデータ長
 
+#現在時刻
+time_now = datetime.datetime.now()                                                              #現在時刻を表示
+
+
 #################################################
 #プログラム定義
 #購入プロセス
 def drink_buyprocess():
+        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                             #現在時刻を表示
         print(drink_p4)                                                                         #商品棚表示2を表示
         print("いらっしゃしませ")
         x = int(input("購入したいドリンクをお選びください>>> "))                                  #商品の番号を選択
         print(str(x)+"番を選択しました")                                                         #選択された番号を表示
         if(x == 0):                                                                             #0を選択した場合終了する
-                print("プログラムを終了しました")                                                            
+                print("プログラムを終了しました") 
+                print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                      #現在時刻を表示                                                           
                 sys.exit()
         elif(x < 1 or x > 36):                                                                  #想定されない番号を選択された場合の返し
                 print("不正な操作が検知されました \n 最初から操作を行ってください")
@@ -119,6 +127,7 @@ def drink_buyprocess():
 
 #現金投入額
         def in_money1():
+                print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                     #現在時刻を表示
                 print("投入金額をお選びください>>> ")
                 print(C_money)                                                                  #支払い可能な支払方法を表示
                 a = int(input("10円の枚数>>> "))                                                #それぞれの貨幣の枚数を記入されたものを変数として保持
@@ -152,10 +161,12 @@ def drink_buyprocess():
                         if(out_money >= 0):                                                                                    #入金額が正しいのかを判断する
                                 print("おつりは"+str(out_money)+"円です")                                                       #おつりを表示
                                 print("お買い上げありがとうございました")
+                                print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                     #現在時刻を表示
                                 buyagain = int(input("続けて購入しますか? \n 1:はい 2:いいえ \n >>> "))                          #続けて購入を行うかを問う選択
                                 if(buyagain == 1):
                                         return(drink_buyprocess())                                                             #最初の操作に戻る
                                 else:
+                                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                             #現在時刻を表示
                                         print("ご利用ありがとうございました")                                                    #ここで終了
                         else:
                                 print("投入金額が"+str(out_money*-1)+"円不足しています \n おつりは"+str(in_money)+"円です")       #不足金とおつりを表示 
@@ -164,8 +175,10 @@ def drink_buyprocess():
                 elif(cheak == 2):
                         print("キャンセルしました")
                         print("おつりは"+str(in_money)+"円です")
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                             #現在時刻を表示
                         print("ご利用ありがとうございました")                                                                    #ここで終了
                 else:
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                             #現在時刻を表示
                         print("不正な操作が検知されました \n 最初から操作を行ってください")                                       #想定されない番号を選択された場合の返し
                         return(drink_buyprocess())                                                                             #最初の操作に戻る
 
@@ -176,14 +189,17 @@ def drink_buyprocess():
                 z = int(input(">>> "))
                 print(str(z)+"を選択しました")
                 if(z == 1):                                                                                                  #選択に応じたそれぞれの返し
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                           #現在時刻を表示
                         print("お買い上げありがとうございました")
                         buyagain = int(input("続けて購入しますか? \n 1:はい 2:いいえ \n >>> "))                                #続けて購入を行うのかを問う選択
                         if(buyagain == 1):
                                 return(drink_buyprocess())                                                                   #最初の操作に戻る
                         else:
+                                print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                   #現在時刻を表示
                                 print("ご利用ありがとうございました")                                                          #ここで終了
                 elif(z == 2):
                         print("キャンセルしました")
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                           #現在時刻を表示
                         print("ご利用ありがとうございました")                                                                  #ここで終了
                 else:
                         print("不正な操作が検知されました \n 最初から操作を行ってください")                                     #想定されない番号を選択された場合の返し
@@ -191,6 +207,7 @@ def drink_buyprocess():
 
 #支払方法選択
         def paychoose():
+                print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                                   #現在時刻を表示
                 print(payments)                                                                                              #支払方法を表示
                 y = int(input("支払方法をお選びください>>> "))
                 print(str(y)+"番を選択しました")
@@ -200,6 +217,7 @@ def drink_buyprocess():
                         in_money2()
                 elif(y == 7):
                         print("キャンセルしました")
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                           #現在時刻を表示
                         print("ご利用ありがとうございました")                                                                   #ここで終了
                 else:
                         print("不正な操作が検知されました \n 最初から操作を行ってください")                                       #想定されない番号を選択された場合の返し
@@ -222,6 +240,7 @@ def cheak_drink():
 #数プログラムチェック
 def cheak_len():
         if((drink_point or drink_price_point or drink_stock_point) != 36):
+                print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                                             #現在時刻を表示
                 print("*プログラムが正常に行われませんでした*")
                 print("発生した問題>>> *数が正しくありません* \n *担当者に連絡を行い問題を解決してください*")
                 sys.exit()                                                                                                              #強制終了
@@ -234,6 +253,7 @@ def cheak_price():
                 i = i + 1
                 drink_price_cheak = drink_p2[i]
                 if(drink_price_cheak == 0):
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                                      #現在時刻を表示
                         print("*プログラムが正常に行われませんでした*")
                         print("発生した問題>>> *"+str(i)+"番の値段が設定されていません* \n *担当者に連絡を行い問題を解決してください*")
                         sys.exit()                                                                                                      #強制終了
@@ -247,6 +267,7 @@ def cheak_money():
                 C_money_cheak = price01.loc[i]
                 N_money_cheak = price02.loc[i]
                 if(C_money_cheak < N_money_cheak):
+                        print("現在時刻：", time_now.strftime("%Y-%m-%d %H:%M:%S"))                                                     #現在時刻を表示
                         print("*プログラムが正常に行われませんでした*")
                         print("発生した問題>>> *貨幣のストック数が超過しています* \n *担当者に連絡を行い問題を解決してください*")
                         sys.exit()                                                                                                      #強制終了
