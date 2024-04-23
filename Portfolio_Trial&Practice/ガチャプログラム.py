@@ -2,22 +2,20 @@ import random
 import sys
 
 RANK_THRESHOLDS = [0.3, 1.7, 6.7, 21.6, 51.6, 71.6, 90.6]
+RANK_THRESHOLDS_UPGRADE = [1.0, 18.0, 38.5, 68.5, 93.5]
 RANKS = ["GR", "SSR", "SR", "RRR", "CR", "R", "C", "N"]
+RANKS_UPGRADE = ["GR", "SSR", "SR", "RRR", "CR"]
 
-player_status = 0
 player_choice1 = "一連"
 player_choice2 = "十連"
 player_choice_end = "ゲームを終了します"
 
 def play_game():
-    global player_status  # グローバル変数を更新するために必要
-
     print(f"ガチャゲーム\n 1.{player_choice1} / 2.{player_choice2}")
-    player_status = int(input("選択: "))
-    print(f"選択したのは: {player_choice1 if player_status == 1 else player_choice2}")
+    return int(input("選択: "))
 
-def get_rank(player_point):
-    for threshold, rank in zip(RANK_THRESHOLDS, RANKS):
+def get_rank(player_point, thresholds):
+    for threshold, rank in zip(thresholds, RANKS):
         if player_point <= threshold:
             return rank
     return RANKS[-1]
@@ -30,38 +28,30 @@ def get_player_choice():
         else:
             print("無効な選択です。 'y' または 'n' を入力してください。")
 
+def run_single_gacha():
+    player_point = random.uniform(0, 100)
+    rank = get_rank(player_point, RANK_THRESHOLDS)
+    print(f"ランク: {rank}")
+    return get_player_choice()
+
+def run_multi_gacha():
+    for i in range(10):
+        player_point = random.uniform(0, 100)
+        rank = get_rank(player_point, RANK_THRESHOLDS_UPGRADE)
+        print(f"{i+1}連目: ランク - {rank}")
+    return get_player_choice()
+
 if __name__ == "__main__":
-    play_game()
+    player_status = play_game()
 
     if player_status == 1:
-        player_point = random.uniform(0, 100)
-        rank = get_rank(player_point)
-        print(f"ランク: {rank}")
-
-        choice = get_player_choice()
+        choice = run_single_gacha()
         while choice == 'y':
-            player_point = random.uniform(0, 100)
-            rank = get_rank(player_point)
-            print(f"ランク: {rank}")
-            choice = get_player_choice()
-
-        print(player_choice_end)
-        sys.exit()
-
+            choice = run_single_gacha()
     elif player_status == 2:
-        for i in range(10):
-            player_point = random.uniform(0, 100)
-            rank = get_rank(player_point)
-            print(f"{i+1}連目: ランク - {rank}")
-        
-        choice = get_player_choice()
+        choice = run_multi_gacha()
         while choice == 'y':
-            for i in range(10):
-                player_point = random.uniform(0, 100)
-                rank = get_rank(player_point)
-                print(f"{i+1}連目: ランク - {rank}")
-                
-            choice = get_player_choice()
+            choice = run_multi_gacha()
 
-        print(player_choice_end)
-        sys.exit()
+    print(player_choice_end)
+    sys.exit()
