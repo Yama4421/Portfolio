@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
         # ビンゴが達成されたか確認
         if check_bingo(bingo_card):
-            print("Bingo! You've won!")
+            print("Bingo! Congratulations!")
             break
         else:
             print("No Bingo yet. Keep playing!")
